@@ -1,0 +1,23 @@
+/*a ver sui puedo */
+#app {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.player-board {
+  margin-top: 200px;
+  display: grid;
+  grid-template-rows: repeat(10, 50px);
+  grid-template-columns: repeat(10, 50px);
+  height: 500px;
+  width: 500px;
+}
+.square {
+  background-color: rgb(14, 153, 134);
+  height: 50px;
+  width: 50px;
+  border: solid 1px;
+}
+.ship {
+  background-color: cornsilk;
+}
