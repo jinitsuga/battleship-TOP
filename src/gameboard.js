@@ -28,23 +28,17 @@ const Gameboard = function () {
     const carrier = Ship(5);
     return { patrolBoat, submarine, destroyer, battleship, carrier };
   };
-  // removing on click deployments ( to stop after 1 ship)
-
-  const removeDeployments = function (eventTarget) {};
 
   // giving on click listener to board squares to deploy the correct ship
 
   const enableDeployment = function (ship) {
     console.log("omegalul");
-    console.log("kekbur");
+    console.log("ctm");
     for (let i = 1; i <= 10; i++) {
       for (let j = 1; j <= 10; j++) {
         let firstIdNum = i.toString();
         let secondIdNum = j;
         const square = document.getElementById(firstIdNum + secondIdNum);
-        square.removeEventListener("click", function () {
-          ship.deployThisShip(firstIdNum, secondIdNum);
-        });
         square.addEventListener("click", function () {
           ship.deployThisShip(firstIdNum, secondIdNum);
         });

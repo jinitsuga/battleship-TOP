@@ -34,6 +34,18 @@ const Ship = (length) => {
       shipSquare.classList.add("ship");
     }
   };
+  // removing on click deploy option on every square
+  // (by replacing w clone)
+  const removeDeployments = function () {
+    for (let i = 1; i <= 10; i++) {
+      for (let j = 1; j <= 10; j++) {
+        let firstIdNum = i.toString();
+        let secondIdNum = j;
+        const square = document.getElementById(firstIdNum + secondIdNum);
+        square.replaceWith(square.cloneNode(true));
+      }
+    }
+  };
   const deployThisShip = function (x, y) {
     console.log("DEPLOYED");
     for (let i = 0; i < length; i++) {
@@ -41,6 +53,7 @@ const Ship = (length) => {
       let yCoord = y + i;
       let shipSquare = document.getElementById(xCoord + yCoord);
       shipSquare.classList.add("ship");
+      removeDeployments();
     }
   };
 

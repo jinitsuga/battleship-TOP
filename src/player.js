@@ -31,7 +31,7 @@ const Player = function () {
   };
   // on click function to enable deployment from ship buttons
   const makeDeployable = function (shipBtn, fn) {
-    shipBtn.addEventListener("click", fn);
+    shipBtn.addEventListener("click", fn, { once: true });
   };
   return { deploymentButtons, makeDeployable };
 };
