@@ -49,8 +49,8 @@ const Ship = (length) => {
   const deployThisShip = function (x, y) {
     console.log("DEPLOYED");
     for (let i = 0; i < length; i++) {
-      let xCoord = x;
-      let yCoord = y + i;
+      let xCoord = x + i;
+      let yCoord = y;
       let shipSquare = document.getElementById(xCoord + yCoord);
       shipSquare.classList.add("ship");
       removeDeployments();

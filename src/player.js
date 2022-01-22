@@ -2,8 +2,29 @@ import { Gameboard, app } from "./gameboard.js";
 import { Ship } from "./ship.js";
 
 const Player = function () {
+  let boatDirection = "vertical";
+
+  // changing direction of boat deployment
+
+  const changeDirection = function () {
+    if (boatDirection == "vertical") boatDirection = "horizontal";
+    else if (boatDirection == "horizontal") boatDirection = "vertical";
+  };
   // buttons to deploy ships (set in array and for each the on click later)
   const deploymentButtons = function () {
+    const buttons = document.createElement("div");
+    buttons.id = "btns";
+    const buttonWrapper = document.createElement("div");
+    buttonWrapper.id = "btn-wrap";
+    const directionBtn = document.createElement("button");
+    directionBtn.textContent = boatDirection;
+    directionBtn.addEventListener("click", () => {
+      changeDirection();
+      directionBtn.textContent = boatDirection;
+      console.log(boatDirection);
+    });
+
+    //boat making buttons
     const deployCarrier = document.createElement("button");
     deployCarrier.textContent = "Deploy carrier";
     const deployBattleship = document.createElement("button");
@@ -14,13 +35,15 @@ const Player = function () {
     deploySubmarine.textContent = "Deploy submarine";
     const deployPatrol = document.createElement("button");
     deployPatrol.textContent = "Deploy patrol boat";
-    app.append(
+    buttonWrapper.append(
       deployCarrier,
       deployBattleship,
       deployDestroyer,
       deploySubmarine,
       deployPatrol
     );
+    buttons.append(directionBtn, buttonWrapper);
+    app.appendChild(buttons);
     return [
       deployCarrier,
       deployBattleship,
@@ -33,6 +56,6 @@ const Player = function () {
   const makeDeployable = function (shipBtn, fn) {
     shipBtn.addEventListener("click", fn, { once: true });
   };
-  return { deploymentButtons, makeDeployable };
+  return { deploymentButtons, makeDeployable, boatDirection };
 };
 export { Player };

@@ -1,4 +1,4 @@
-/*a ver sui puedo */
+/*a ver si puedo */
 #app {
   display: flex;
   justify-content: center;
@@ -20,4 +20,18 @@
 }
 .ship {
   background-color: cornsilk;
+}
+#btns {
+  display: flex;
+  flex-direction: column;
+}
+#btn-wrap {
+  display: flex;
+  flex-direction: column;
+  padding: 15px;
+}
+#btn-wrap > button {
+  margin: 10px;
+  height: 50px;
+  width: 100px;
 }

@@ -36,8 +36,8 @@ const Gameboard = function () {
     console.log("ctm");
     for (let i = 1; i <= 10; i++) {
       for (let j = 1; j <= 10; j++) {
-        let firstIdNum = i.toString();
-        let secondIdNum = j;
+        let firstIdNum = i;
+        let secondIdNum = j.toString();
         const square = document.getElementById(firstIdNum + secondIdNum);
         square.addEventListener("click", function () {
           ship.deployThisShip(firstIdNum, secondIdNum);
