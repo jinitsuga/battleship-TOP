@@ -1,25 +1,23 @@
 export { Ship };
-const Ship = (length) => {
+const Ship = (name, length) => {
+  const shipName = name;
+  let isDeployed = "no";
   let size = [];
   // set the ship's size as array to enable checking if hit or sunk
-  const setSize = function () {
-    for (let i = 0; i < length; i++) {
-      size.push(i);
-    }
-    return size;
-  };
 
   const hit = (number) => {
     size[number] = "hit";
     return size[number];
   };
   // if every ele in the array is "hit" : ship is sunk
+  const checkHits = (element) => element == "hit";
+  const checkUndef = (element) => element == undefined;
+
   const isSunk = () => {
-    if (
-      size.every((tile) => {
-        tile == "hit";
-      })
-    ) {
+    if (size.every(checkUndef) == true) {
+      return false;
+    }
+    if (size.every(checkHits) == true) {
       return true;
     } else {
       return false;
@@ -46,16 +44,42 @@ const Ship = (length) => {
       }
     }
   };
-  const deployThisShip = function (x, y) {
-    console.log("DEPLOYED");
-    for (let i = 0; i < length; i++) {
-      let xCoord = x + i;
-      let yCoord = y;
-      let shipSquare = document.getElementById(xCoord + yCoord);
-      shipSquare.classList.add("ship");
-      removeDeployments();
-    }
+  // Make the ship into JS Data by setting its size
+  const setShipSize = function (elem) {
+    size.push(elem);
   };
 
-  return { size, setSize, isSunk, hit, deployShip, deployThisShip };
+  const deployThisShip = function (x, y) {
+    for (let i = 0; i < length; i++) {
+      let direction = document.getElementById("direction-btn");
+      if (direction.textContent == "horizontal") {
+        let xCoord = x + i;
+        let yCoord = y;
+        let shipSquare = document.getElementById(xCoord + yCoord);
+        shipSquare.classList.add("ship");
+        setShipSize(shipSquare.id);
+        isDeployed = "yes";
+      } else if (direction.textContent == "vertical") {
+        let xCoord = x;
+        let yCoord = y + i;
+        let shipSquare = document.getElementById(xCoord + yCoord);
+        shipSquare.classList.add("ship");
+        setShipSize(shipSquare.id);
+        isDeployed = "yes";
+      }
+      console.log(size);
+    }
+    removeDeployments();
+  };
+
+  return {
+    size,
+    isSunk,
+    hit,
+    deployShip,
+    deployThisShip,
+    isDeployed,
+    shipName,
+    checkHits,
+  };
 };

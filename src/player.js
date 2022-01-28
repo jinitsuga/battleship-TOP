@@ -17,6 +17,7 @@ const Player = function () {
     const buttonWrapper = document.createElement("div");
     buttonWrapper.id = "btn-wrap";
     const directionBtn = document.createElement("button");
+    directionBtn.id = "direction-btn";
     directionBtn.textContent = boatDirection;
     directionBtn.addEventListener("click", () => {
       changeDirection();

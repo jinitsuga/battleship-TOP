@@ -21,41 +21,84 @@ const Gameboard = function () {
 
   // ship maker function, potentially changing how ships are set up
   const makeShip = function () {
-    const patrolBoat = Ship(2);
-    const submarine = Ship(3);
-    const destroyer = Ship(3);
-    const battleship = Ship(4);
-    const carrier = Ship(5);
+    const patrolBoat = Ship("patrol boat", 2);
+    const submarine = Ship("submarine", 3);
+    const destroyer = Ship("destroyer", 3);
+    const battleship = Ship("battleship", 4);
+    const carrier = Ship("carrier", 5);
     return { patrolBoat, submarine, destroyer, battleship, carrier };
   };
 
   // giving on click listener to board squares to deploy the correct ship
 
   const enableDeployment = function (ship) {
-    console.log("omegalul");
-    console.log("ctm");
     for (let i = 1; i <= 10; i++) {
       for (let j = 1; j <= 10; j++) {
-        let firstIdNum = i;
-        let secondIdNum = j.toString();
-        const square = document.getElementById(firstIdNum + secondIdNum);
-        square.addEventListener("click", function () {
-          ship.deployThisShip(firstIdNum, secondIdNum);
-        });
+        let direction = document.getElementById("direction-btn");
+        if (direction.textContent == "horizontal") {
+          let firstIdNum = i;
+          let secondIdNum = j.toString();
+          const square = document.getElementById(firstIdNum + secondIdNum);
+          square.addEventListener("click", function () {
+            ship.deployThisShip(firstIdNum, secondIdNum);
+          });
+        } else if (direction.textContent == "vertical") {
+          let firstIdNum = i.toString();
+          let secondIdNum = j;
+          const square = document.getElementById(firstIdNum + secondIdNum);
+          square.addEventListener("click", function () {
+            ship.deployThisShip(firstIdNum, secondIdNum);
+          });
+        }
       }
     }
   };
-  // board receives an attack and checks if the attacked square has a ship
-  const receiveAttack = function (coordX, coordY) {
-    const attackedSquare = document.getElementById(
-      coordX.toString() + coordY.toString()
-    );
-    attackedSquare.style.backgroundColor = "green";
-    // if (attack.classList.contains("ship")) {
-    // }
-    return attackedSquare;
+  // checking for sunk ships
+  const checkSunk = function (arr) {
+    arr.forEach((element) => {
+      if (element.isSunk()) {
+        return console.log(element.shipName + " is sunk!");
+      }
+    });
   };
-  return { makeShip, setBoard, receiveAttack, enableDeployment };
+  // Grouping attack-related functions together in baby module
+  const attacks = function () {
+    // determining which ship was hit
+    const findShip = function (arr, id) {
+      const attackedShip = arr.find((element) => element.size.includes(id));
+      return attackedShip;
+    };
+    // determining index on the attacked ship's array
+    const determineHit = function (arr, id) {
+      for (let i = 0; i < arr.length; i++) {
+        let ship = arr[i];
+        let index = ship.size.findIndex((element) => element === id);
+        if (index > 0) {
+          return index;
+        }
+      }
+    };
+    // Change the given ship's square to "hit", using the index given
+    const markHit = function (ship, index) {
+      ship.hit(index);
+    };
+    // board receives an attack and checks if the attacked square has a ship
+    const receiveAttack = function (coordX, coordY) {
+      const attackedSquare = document.getElementById(
+        coordX.toString() + coordY.toString()
+      );
+      return attackedSquare.id;
+    };
+    return { findShip, determineHit, markHit, receiveAttack };
+  };
+
+  return {
+    makeShip,
+    setBoard,
+    enableDeployment,
+    attacks,
+    checkSunk,
+  };
 };
 
 export { Gameboard, app };

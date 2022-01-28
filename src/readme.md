@@ -5,3 +5,4 @@ An iteration of the classic Battleship game on the browser for The Odin Project 
 -setting up some sort of AI
 -comments
 -replacing elements with clones / execute eventlistener only once
+-Unstuck brain (when stuck, re-traced initial steps to figure out what was next)
