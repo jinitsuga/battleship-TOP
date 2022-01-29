@@ -2,6 +2,7 @@ import { Ship } from "./ship.js";
 import { Gameboard } from "./gameboard.js";
 import { Player } from "./player.js";
 import "./style.css";
+import { Ai, aiBoard } from "./AI.js";
 export { app };
 
 const app = document.querySelector("#app");
@@ -9,7 +10,15 @@ const board = Gameboard();
 const player = Player();
 board.setBoard();
 const dockBtns = player.deploymentButtons();
-
+dockBtns.forEach((btn) =>
+  btn.addEventListener(
+    "click",
+    function () {
+      player.addDeployment();
+    },
+    { once: true }
+  )
+);
 // Making ships (docked) available for deployment
 
 const carrier = board.makeShip().carrier;
@@ -24,7 +33,6 @@ const docks = [carrier, battleship, destroyer, submarine, patrolBoat];
 for (let i = 0; i < docks.length; i++) {
   let btn = dockBtns[i];
   let boat = docks[i];
-  let direction = document.getElementById("direction-btn");
   player.makeDeployable(btn, function () {
     //console.log(direction.textContent);
     board.enableDeployment(boat);
@@ -34,6 +42,8 @@ for (let i = 0; i < docks.length; i++) {
 destroyer.deployThisShip("2", 3);
 battleship.deployThisShip("4", 7);
 
+// obtaining the attacked ship, and the index of the element inside
+// the ship's size that is being attacked
 let shipIndex = board
   .attacks()
   .determineHit(docks, board.attacks().receiveAttack(2, 4));

@@ -39,6 +39,9 @@ const Gameboard = function () {
           let firstIdNum = i;
           let secondIdNum = j.toString();
           const square = document.getElementById(firstIdNum + secondIdNum);
+          if (square.classList.contains("ship")) {
+            continue;
+          }
           square.addEventListener("click", function () {
             ship.deployThisShip(firstIdNum, secondIdNum);
           });
@@ -46,6 +49,9 @@ const Gameboard = function () {
           let firstIdNum = i.toString();
           let secondIdNum = j;
           const square = document.getElementById(firstIdNum + secondIdNum);
+          if (square.classList.contains("ship")) {
+            continue;
+          }
           square.addEventListener("click", function () {
             ship.deployThisShip(firstIdNum, secondIdNum);
           });
@@ -62,6 +68,9 @@ const Gameboard = function () {
     });
   };
   // Grouping attack-related functions together in baby module
+
+  // findShip and determineHIt both need receiveAttack()'s return as ID param
+
   const attacks = function () {
     // determining which ship was hit
     const findShip = function (arr, id) {

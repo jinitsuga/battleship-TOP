@@ -44,7 +44,7 @@ const Ship = (name, length) => {
       }
     }
   };
-  // Make the ship into JS Data by setting its size
+  // Make the ship into JS Data by setting its size thru pushing id of elements making the ship
   const setShipSize = function (elem) {
     size.push(elem);
   };
@@ -67,7 +67,6 @@ const Ship = (name, length) => {
         setShipSize(shipSquare.id);
         isDeployed = "yes";
       }
-      console.log(size);
     }
     removeDeployments();
   };
@@ -80,6 +79,5 @@ const Ship = (name, length) => {
     deployThisShip,
     isDeployed,
     shipName,
-    checkHits,
   };
 };

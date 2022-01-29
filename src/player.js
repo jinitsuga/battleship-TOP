@@ -3,6 +3,16 @@ import { Ship } from "./ship.js";
 
 const Player = function () {
   let boatDirection = "vertical";
+  let numOfDeployments = 0;
+  const addDeployment = function () {
+    numOfDeployments++;
+  };
+
+  // START GAME button (will set up AI board and start turn 1)
+  const startBtn = document.createElement("button");
+  startBtn.id = "start-btn";
+  startBtn.textContent = "START";
+  app.appendChild(startBtn);
 
   // changing direction of boat deployment
 
@@ -53,10 +63,20 @@ const Player = function () {
       deployPatrol,
     ];
   };
-  // on click function to enable deployment from ship buttons
+  // on click function to enable deployment from ship buttons ONLY ONCE
   const makeDeployable = function (shipBtn, fn) {
     shipBtn.addEventListener("click", fn, { once: true });
   };
-  return { deploymentButtons, makeDeployable, boatDirection };
+  return {
+    deploymentButtons,
+    makeDeployable,
+    boatDirection,
+    addDeployment,
+  };
 };
 export { Player };
+
+//1 Deploy every boat (condition)
+//2 Press start game --> set up AI board + AI boat deployments
+//3 Player attacks, gets feedback from the shot
+//4 AI attacks, takes feedback and saves data for next shot
