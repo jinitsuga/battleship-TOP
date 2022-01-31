@@ -2,8 +2,9 @@ import { Ship } from "./ship.js";
 import { app } from "./index.js";
 
 const Gameboard = function () {
-  const setBoard = () => {
+  const setBoard = (boardId, identifier) => {
     const playerBoard = document.createElement("div");
+    playerBoard.id = boardId;
     app.appendChild(playerBoard);
     playerBoard.classList.add("player-board");
     // Setting up board with X and Y dataset attributes to use as coordinates
@@ -13,8 +14,13 @@ const Gameboard = function () {
         square.classList.add("square");
         square.dataset.x = i + 1;
         square.dataset.y = j + 1;
-        square.id = square.dataset.x + square.dataset.y;
-        playerBoard.appendChild(square);
+        if (identifier !== undefined) {
+          square.id = identifier + square.dataset.x + square.dataset.y;
+          playerBoard.appendChild(square);
+        } else {
+          square.id = square.dataset.x + square.dataset.y;
+          playerBoard.appendChild(square);
+        }
       }
     }
   };

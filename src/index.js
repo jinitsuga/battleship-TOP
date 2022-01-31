@@ -2,13 +2,13 @@ import { Ship } from "./ship.js";
 import { Gameboard } from "./gameboard.js";
 import { Player } from "./player.js";
 import "./style.css";
-import { Ai, aiBoard } from "./AI.js";
+import { ArtificialInt, deployAiShips } from "./AI.js";
 export { app };
 
 const app = document.querySelector("#app");
 const board = Gameboard();
 const player = Player();
-board.setBoard();
+board.setBoard("player-board");
 const dockBtns = player.deploymentButtons();
 dockBtns.forEach((btn) =>
   btn.addEventListener(
@@ -19,6 +19,7 @@ dockBtns.forEach((btn) =>
     { once: true }
   )
 );
+
 // Making ships (docked) available for deployment
 
 const carrier = board.makeShip().carrier;
@@ -39,9 +40,6 @@ for (let i = 0; i < docks.length; i++) {
   });
 }
 
-destroyer.deployThisShip("2", 3);
-battleship.deployThisShip("4", 7);
-
 // obtaining the attacked ship, and the index of the element inside
 // the ship's size that is being attacked
 let shipIndex = board
@@ -54,9 +52,11 @@ board.attacks().markHit(destroyer, 2);
 board.attacks().markHit(destroyer, 0);
 board.checkSunk(docks);
 
-// 1. Player board setup
-// 2. Ships deployment, using buttons, horizontal and vertical
-// 3. Player board is able to receive attacks
-// 4. Ability to tell what ship is hit, and if ship is sunk
+const aiShips = ArtificialInt().enableAiShips();
+ArtificialInt().setupBoard();
+console.log(aiShips);
+const randomness = document.getElementById("33");
+
 // 5. Set up AI board and AI ships.
+// DEPLOY AI SHIPS - SHIP MODULE
 // 6. Polish UI on both boards for visual representation of attacks

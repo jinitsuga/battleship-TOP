@@ -49,6 +49,28 @@ const Ship = (name, length) => {
     size.push(elem);
   };
 
+  // deploy AI ships ( due to no class) no need to remove deployments
+  const deployAiShip = function (x, y) {
+    for (let i = 0; i < length; i++) {
+      let direction = document.getElementById("direction-btn");
+      if (direction.textContent == "horizontal") {
+        let xCoord = x + i;
+        let yCoord = y;
+        let shipSquare = document.getElementById(xCoord + yCoord);
+        shipSquare.classList.add("ship");
+        setShipSize(shipSquare.id);
+        isDeployed = "yes";
+      } else if (direction.textContent == "vertical") {
+        let xCoord = x;
+        let yCoord = y + i;
+        let shipSquare = document.getElementById(xCoord + yCoord);
+        shipSquare.classList.add("ship");
+        setShipSize(shipSquare.id);
+        isDeployed = "yes";
+      }
+    }
+    removeDeployments();
+  };
   const deployThisShip = function (x, y) {
     for (let i = 0; i < length; i++) {
       let direction = document.getElementById("direction-btn");
